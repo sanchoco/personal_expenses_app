@@ -24,8 +24,6 @@ class _NewTransactionState extends State<NewTransaction> {
       return;
     }
     widget.addTx(enteredTitle, enteredAmount);
-    // titleController.clear();
-    // amountColtroller.clear();
 
     Navigator.of(context).pop();
   }
