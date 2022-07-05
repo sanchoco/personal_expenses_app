@@ -46,7 +46,26 @@ class _NewTransactionState extends State<NewTransaction> {
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             onSubmitted: (_) => submitData,
           ),
-          TextButton(child: Text('Add Transaction', style: TextStyle(color: Colors.purple)), onPressed: submitData)
+          Row(
+            children: [
+              Text('No Date Chosen!'),
+              TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Choose Date',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+            ],
+          ),
+          ElevatedButton(
+              child: Text(
+                'Add Transaction',
+                style: TextStyle(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: submitData)
         ]),
       ),
     );
