@@ -37,6 +37,12 @@ class ChartBar extends StatelessWidget {
         SizedBox(
           height: 4,
         ),
+        Container(
+          child: Text(
+            '${labal}',
+            style: TextStyle(fontFamily: "OpenSans"),
+          ),
+        )
       ],
     );
   }
