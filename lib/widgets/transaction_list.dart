@@ -31,50 +31,52 @@ class TransactionList extends StatelessWidget {
                 ],
               );
             })
-          : ListView.builder(
-              itemBuilder: (ctx, index) {
-                return Card(
-                  elevation: 5,
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                  child: ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(color: Theme.of(context).primaryColor, shape: BoxShape.circle),
-                      height: 60,
-                      width: 60,
-                      child: CircleAvatar(
-                        radius: 30,
-                        child: Padding(
-                          padding: EdgeInsets.all(6),
-                          child: FittedBox(
-                            child: Text('\$${transactions[index].amount}'),
+          : Scrollbar(
+              child: ListView.builder(
+                itemBuilder: (ctx, index) {
+                  return Card(
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    child: ListTile(
+                      leading: Container(
+                        decoration: BoxDecoration(color: Theme.of(context).primaryColor, shape: BoxShape.circle),
+                        height: 60,
+                        width: 60,
+                        child: CircleAvatar(
+                          radius: 30,
+                          child: Padding(
+                            padding: EdgeInsets.all(6),
+                            child: FittedBox(
+                              child: Text('\$${transactions[index].amount}'),
+                            ),
                           ),
                         ),
                       ),
+                      title: Text(
+                        transactions[index].title,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      subtitle: Text(
+                        DateFormat.yMMMEd().format(transactions[index].date),
+                      ),
+                      trailing: MediaQuery.of(context).size.width > 400
+                          ? ElevatedButton(
+                              child: Text('delete'),
+                              style: TextButton.styleFrom(backgroundColor: Theme.of(context).errorColor),
+                              // icon: Icon(Icons.delete),
+                              // color: Theme.of(context).errorColor,
+                              onPressed: () => deleteTx(transactions[index].id),
+                            )
+                          : IconButton(
+                              icon: Icon(Icons.delete),
+                              color: Theme.of(context).errorColor,
+                              onPressed: () => deleteTx(transactions[index].id),
+                            ),
                     ),
-                    title: Text(
-                      transactions[index].title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat.yMMMEd().format(transactions[index].date),
-                    ),
-                    trailing: MediaQuery.of(context).size.width > 400
-                        ? ElevatedButton(
-                            child: Text('delete'),
-                            style: TextButton.styleFrom(backgroundColor: Theme.of(context).errorColor),
-                            // icon: Icon(Icons.delete),
-                            // color: Theme.of(context).errorColor,
-                            onPressed: () => deleteTx(transactions[index].id),
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.delete),
-                            color: Theme.of(context).errorColor,
-                            onPressed: () => deleteTx(transactions[index].id),
-                          ),
-                  ),
-                );
-              },
-              itemCount: transactions.length,
+                  );
+                },
+                itemCount: transactions.length,
+              ),
             ),
     );
   }
