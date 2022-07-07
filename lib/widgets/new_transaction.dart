@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -51,10 +53,15 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
+    return SingleChildScrollView(
+      // elevation: 5,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.only(
+          top: 10,
+          left: 10,
+          right: 10,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           TextField(
             decoration: InputDecoration(labelText: 'Title'),
@@ -74,12 +81,19 @@ class _NewTransactionState extends State<NewTransaction> {
                   _selectedDate == null ? 'No Date Chosen!' : 'Picked Dte: ${DateFormat.yMd().format(_selectedDate)}',
                 ),
               ),
-              TextButton(
-                  onPressed: _presentDatePicker,
-                  child: Text(
-                    'Choose Date',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
+              Platform.isIOS
+                  ? CupertinoButton(
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: _presentDatePicker)
+                  : TextButton(
+                      onPressed: _presentDatePicker,
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
             ],
           ),
           ElevatedButton(
