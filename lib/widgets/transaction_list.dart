@@ -11,7 +11,6 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeColor = Theme.of(context).primaryColor;
     return Container(
-      height: 500,
       child: transactions.isEmpty
           ? Column(
               children: [
