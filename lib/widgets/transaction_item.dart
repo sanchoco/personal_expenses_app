@@ -1,15 +1,37 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/models/transaction.dart';
 import 'package:intl/intl.dart';
 
-class TransactionItem extends StatelessWidget {
+class TransactionItem extends StatefulWidget {
   final Transaction transaction;
   final Function deleteTx;
 
   const TransactionItem({
+    required Key key,
     required this.transaction,
     required this.deleteTx,
-  });
+  }) : super(key: key);
+
+  @override
+  State<TransactionItem> createState() => _TransactionItemState();
+}
+
+class _TransactionItemState extends State<TransactionItem> {
+  late Color _bgColor;
+  @override
+  void initState() {
+    const availableColors = [
+      Colors.red,
+      Colors.black,
+      Colors.blue,
+      Colors.purple,
+    ];
+
+    _bgColor = availableColors[Random().nextInt(availableColors.length)];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +44,22 @@ class TransactionItem extends StatelessWidget {
           height: 60,
           width: 60,
           child: CircleAvatar(
+            backgroundColor: _bgColor,
             radius: 30,
             child: Padding(
               padding: EdgeInsets.all(6),
               child: FittedBox(
-                child: Text('\$${transaction.amount}'),
+                child: Text('\$${widget.transaction.amount}'),
               ),
             ),
           ),
         ),
         title: Text(
-          transaction.title,
+          widget.transaction.title,
           style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
-          DateFormat.yMMMEd().format(transaction.date),
+          DateFormat.yMMMEd().format(widget.transaction.date),
         ),
         trailing: MediaQuery.of(context).size.width > 400
             ? ElevatedButton(
@@ -44,12 +67,12 @@ class TransactionItem extends StatelessWidget {
                 style: TextButton.styleFrom(backgroundColor: Theme.of(context).errorColor),
                 // icon: Icon(Icons.delete),
                 // color: Theme.of(context).errorColor,
-                onPressed: () => deleteTx(transaction.id),
+                onPressed: () => widget.deleteTx(widget.transaction.id),
               )
             : IconButton(
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).errorColor,
-                onPressed: () => deleteTx(transaction.id),
+                onPressed: () => widget.deleteTx(widget.transaction.id),
               ),
       ),
     );

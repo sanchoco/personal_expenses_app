@@ -8,6 +8,7 @@ class TransactionList extends StatelessWidget {
   final Function deleteTx;
 
   TransactionList(this.transactions, this.deleteTx);
+
   @override
   Widget build(BuildContext context) {
     var themeColor = Theme.of(context).primaryColor;
@@ -33,11 +34,14 @@ class TransactionList extends StatelessWidget {
               );
             })
           : Scrollbar(
-              child: ListView.builder(
-                itemBuilder: (ctx, index) {
-                  return TransactionItem(transaction: transactions[index], deleteTx: deleteTx);
-                },
-                itemCount: transactions.length,
+              child: ListView(
+                children: transactions
+                    .map((tx) => TransactionItem(
+                          key: ValueKey(tx.id),
+                          transaction: tx,
+                          deleteTx: deleteTx,
+                        ))
+                    .toList(),
               ),
             ),
     );
