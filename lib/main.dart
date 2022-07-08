@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/models/transaction.dart';
-import 'package:flutter_complete_guide/widgets/chart.dart';
-import 'package:flutter_complete_guide/widgets/new_transaction.dart';
-import 'package:flutter_complete_guide/widgets/transaction_list.dart';
+import './models/transaction.dart';
+import './widgets/chart.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
 
 void main() {
   runApp(MyApp());
